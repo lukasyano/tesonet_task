@@ -26,6 +26,11 @@ android {
         }
     }
 
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+    }
+
     kotlinOptions {
         jvmTarget = '1.8'
     }
@@ -54,4 +59,19 @@ dependencies {
     implementation "org.koin:koin-core-ext:$koin_version"
     implementation "org.koin:koin-androidx-viewmodel:$koin_version"
     testImplementation "org.koin:koin-test:$koin_version"
+
+    //Retrofit
+    def retro = "2.7.1"
+    def okHttp = "4.3.1"
+
+    implementation "com.squareup.retrofit2:retrofit:$retro"
+    implementation "com.squareup.retrofit2:adapter-rxjava2:$retro"
+    implementation "com.squareup.retrofit2:converter-gson:$retro"
+    implementation "com.squareup.okhttp3:okhttp:$okHttp"
+
+    //rxJava
+    def rxJava = "2.2.9"
+    def rxJavaAndroid = "2.1.1"
+    implementation "io.reactivex.rxjava2:rxjava:$rxJava"
+    implementation "io.reactivex.rxjava2:rxandroid:$rxJavaAndroid"
 }

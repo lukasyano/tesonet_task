@@ -7,4 +7,7 @@ class LoginViewModel(
     private val authRepository: AuthRepository
 ) : ViewModel() {
 
+    fun setLogin(username: String, password: String) {
+
+    }
 }

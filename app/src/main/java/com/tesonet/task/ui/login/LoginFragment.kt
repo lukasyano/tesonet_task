@@ -6,12 +6,15 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import com.tesonet.task.R
+import kotlinx.android.synthetic.main.fragment_login.*
 import org.koin.androidx.viewmodel.ext.android.viewModel
-import kotlin.math.log
 
 class LoginFragment : Fragment() {
 
-    private val loginViewModel : LoginViewModel by viewModel()
+    private lateinit var username : String
+    private lateinit var password : String
+
+    private val loginViewModel: LoginViewModel by viewModel()
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -24,6 +27,15 @@ class LoginFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        loginViewModel
+        buttonLogin.setOnClickListener {
+            setLogin()
+        }
+    }
+
+    private fun setLogin() {
+         username = editTextUsername.text.toString()
+         password = editTextPassword.text.toString()
+
+        loginViewModel.setLogin(username,password)
     }
 }
