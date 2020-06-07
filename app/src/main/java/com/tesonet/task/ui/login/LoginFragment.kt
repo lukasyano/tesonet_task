@@ -7,6 +7,7 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import com.tesonet.task.R
 import org.koin.androidx.viewmodel.ext.android.viewModel
+import kotlin.math.log
 
 class LoginFragment : Fragment() {
 
@@ -23,5 +24,6 @@ class LoginFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        loginViewModel
     }
 }
