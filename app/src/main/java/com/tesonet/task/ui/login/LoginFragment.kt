@@ -11,8 +11,8 @@ import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class LoginFragment : Fragment() {
 
-    private lateinit var username : String
-    private lateinit var password : String
+    private lateinit var username: String
+    private lateinit var password: String
 
     private val loginViewModel: LoginViewModel by viewModel()
 
@@ -28,14 +28,16 @@ class LoginFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         buttonLogin.setOnClickListener {
-            setLogin()
+            login()
         }
     }
 
-    private fun setLogin() {
-         username = editTextUsername.text.toString()
-         password = editTextPassword.text.toString()
+    private fun login() {
+        username = editTextUsername.text.toString()
+        password = editTextPassword.text.toString()
 
-        loginViewModel.setLogin(username,password)
+        if (username.isBlank() || password.isBlank()) return
+
+        loginViewModel.login(username, password)
     }
 }
