@@ -5,7 +5,9 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.Observer
 import com.tesonet.task.R
+import com.tesonet.task.snack
 import kotlinx.android.synthetic.main.fragment_login.*
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
@@ -26,6 +28,7 @@ class LoginFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        observeLiveData()
 
         buttonLogin.setOnClickListener {
             login()
@@ -36,8 +39,24 @@ class LoginFragment : Fragment() {
         username = editTextUsername.text.toString()
         password = editTextPassword.text.toString()
 
-        if (username.isBlank() || password.isBlank()) return
+        if (username.isNotEmpty() || password.isNotEmpty()) {
+            loginViewModel.login(username, password)
+        }
+    }
 
-        loginViewModel.login(username, password)
+    private fun observeLiveData() {
+        loginViewModel.liveData.observe(
+            viewLifecycleOwner, Observer {
+                when (it) {
+                    is LoginUiState.Success -> {
+                       //todo navigate
+                        buttonLogin.snack(it.toString())
+                    }
+                    is LoginUiState.Error -> {
+                        buttonLogin.snack(it.error)
+                    }
+                }
+            }
+        )
     }
 }
