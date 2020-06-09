@@ -6,6 +6,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
+import androidx.navigation.fragment.findNavController
 import com.tesonet.task.R
 import com.tesonet.task.snack
 import kotlinx.android.synthetic.main.fragment_login.*
@@ -49,8 +50,12 @@ class LoginFragment : Fragment() {
             viewLifecycleOwner, Observer {
                 when (it) {
                     is LoginUiState.Success -> {
-                       //todo navigate
-                        buttonLogin.snack(it.toString())
+                        view?.let {
+                            findNavController()
+                                .navigate(
+                                    LoginFragmentDirections.actionLoginFragmentToServersFragment()
+                                )
+                        }
                     }
                     is LoginUiState.Error -> {
                         buttonLogin.snack(it.error)
