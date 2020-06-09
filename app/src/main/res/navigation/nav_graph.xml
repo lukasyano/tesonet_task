@@ -19,5 +19,21 @@
         android:id="@+id/serversFragment"
         android:name="com.tesonet.task.ui.servers.ServersFragment"
         android:label="ServersFragment"
-        tools:layout="@layout/fragment_servers" />
+        tools:layout="@layout/fragment_servers">
+        <action
+            android:id="@+id/action_serversFragment_to_serverDetailsFragment"
+            app:destination="@id/serverDetailsFragment" />
+        <action
+            android:id="@+id/action_serversFragment_to_loginFragment"
+            app:destination="@id/loginFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/serverDetailsFragment"
+        android:name="com.tesonet.task.ui.serverDetails.ServerDetailsFragment"
+        android:label="ServerDetailsFragment"
+        tools:layout="@layout/fragment_server_details">
+        <argument
+            android:name="distance"
+            app:argType="integer" />
+    </fragment>
 </navigation>

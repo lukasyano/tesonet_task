@@ -6,14 +6,17 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.tesonet.task.R
+import com.tesonet.task.repository.entity.ServersEntity
 import com.tesonet.task.snack
 import com.tesonet.task.ui.ServersAdapter
+import com.tesonet.task.ui.ServersListener
 import kotlinx.android.synthetic.main.fragment_servers.*
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
-class ServersFragment : Fragment() {
+class ServersFragment : Fragment(), ServersListener {
 
     private val serversViewModel: ServersViewModel by viewModel()
     private lateinit var serversAdapter: ServersAdapter
@@ -29,7 +32,7 @@ class ServersFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        serversAdapter = ServersAdapter()
+        serversAdapter = ServersAdapter(this)
         recycleView.adapter = serversAdapter
         recycleView.layoutManager = LinearLayoutManager(context)
 
@@ -48,10 +51,28 @@ class ServersFragment : Fragment() {
                         recycleView.snack(it.errorText)
                     }
                     is ServersUiState.NoTokenError -> {
-                        //todo navigate
+                        backToLogin()
                     }
                 }
             }
         )
+    }
+
+    override fun onServerClick(server: ServersEntity) {
+        view?.let {
+            findNavController()
+                .navigate(
+                    ServersFragmentDirections.actionServersFragmentToServerDetailsFragment(server.distance)
+                )
+        }
+    }
+
+    private fun backToLogin() {
+        view?.let {
+            findNavController()
+                .navigate(
+                    ServersFragmentDirections.actionServersFragmentToLoginFragment()
+                )
+        }
     }
 }

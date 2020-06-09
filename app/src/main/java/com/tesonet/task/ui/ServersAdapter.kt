@@ -10,7 +10,7 @@ import com.tesonet.task.R
 import com.tesonet.task.repository.entity.ServersEntity
 import kotlinx.android.synthetic.main.servers_list_item.view.*
 
-class ServersAdapter : RecyclerView.Adapter<ServersAdapter.ServersItemViewHolder>() {
+class ServersAdapter(private val listener: ServersListener) : RecyclerView.Adapter<ServersAdapter.ServersItemViewHolder>() {
 
     private var data = emptyList<ServersEntity>()
 
@@ -28,7 +28,7 @@ class ServersAdapter : RecyclerView.Adapter<ServersAdapter.ServersItemViewHolder
 
         holder.serverTitleView.text = server.name
         holder.rootView.setOnClickListener {
-            //todo navigate
+            listener.onServerClick(server)
         }
     }
 
