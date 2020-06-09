@@ -9,6 +9,7 @@
         android:id="@+id/loginFragment"
         android:name="com.tesonet.task.ui.login.LoginFragment"
         android:label="LoginFragment"
+        app:defaultNavHost="true"
         tools:layout="@layout/fragment_login">
         <action
             android:id="@+id/action_loginFragment_to_serversFragment"
@@ -18,5 +19,5 @@
         android:id="@+id/serversFragment"
         android:name="com.tesonet.task.ui.servers.ServersFragment"
         android:label="ServersFragment"
-        tools:layout="@layout/fragment_servers"/>
+        tools:layout="@layout/fragment_servers" />
 </navigation>

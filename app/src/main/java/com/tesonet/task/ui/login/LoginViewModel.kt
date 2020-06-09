@@ -3,10 +3,12 @@ package com.tesonet.task.ui.login
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.tesonet.task.repository.AuthRepository
+import com.tesonet.task.repository.PersistentRepository
 import io.reactivex.disposables.CompositeDisposable
 
 class LoginViewModel(
-    private val authRepository: AuthRepository
+    private val authRepository: AuthRepository,
+    private val persistentRepository: PersistentRepository
 ) : ViewModel() {
 
     val liveData = MutableLiveData<LoginUiState>()
@@ -21,7 +23,7 @@ class LoginViewModel(
             .subscribe(
                 {
                     if (!it.token.isNullOrEmpty()) {
-                        authRepository.saveTokenToPersistent(it.token)
+                        persistentRepository.saveTokenToPersistent(it.token)
                         liveData.postValue(LoginUiState.Success(it))
                     } else {
                         if (!it.message.isNullOrEmpty()) {
