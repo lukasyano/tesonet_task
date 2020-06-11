@@ -15,7 +15,11 @@ class ServersViewModel(
     private val bag = CompositeDisposable()
 
     init {
-            getServersFromApi(persistentRepository.getTokenFromPersistent() ?: "")
+        getServersFromApi(persistentRepository.getTokenFromPersistent() ?: "")
+    }
+
+    fun onSwipeToRefresh() {
+        getServersFromApi(persistentRepository.getTokenFromPersistent() ?: "")
     }
 
     private fun getServersFromApi(token: String) {

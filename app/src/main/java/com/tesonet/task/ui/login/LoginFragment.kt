@@ -47,7 +47,7 @@ class LoginFragment : Fragment() {
 
         loginViewModel.liveData.observe(
             viewLifecycleOwner, Observer {
-                spinner.hide()
+                loginSpinner.hide()
                 view?.hideKeyboard()
 
                 when (it) {
@@ -61,7 +61,7 @@ class LoginFragment : Fragment() {
                     is LoginUiState.Error -> {
                         buttonLogin.snack(getString(it.errorMsg))
                     }
-                    is LoginUiState.ShowSpinner -> spinner.show()
+                    is LoginUiState.ShowSpinner -> loginSpinner.show()
                 }
             }
         )

@@ -34,13 +34,14 @@ class ServersFragment : Fragment(), ServersListener {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        spinner.hide()
+        serversSpinner.hide()
 
         serversAdapter = ServersAdapter(this)
         recycleView.adapter = serversAdapter
         recycleView.layoutManager = LinearLayoutManager(context)
 
         observeLiveData()
+        setupSwipeToRefresh()
     }
 
     private fun observeLiveData() {
@@ -49,14 +50,19 @@ class ServersFragment : Fragment(), ServersListener {
                 when (it) {
                     is ServersUiState.Success -> {
                         serversAdapter.updateData(it.servers)
-                        spinner.hide()
+                        swipeToRefresh.isRefreshing = false
+                        serversSpinner.hide()
                     }
-                    is ServersUiState.ErrorMsg -> {
-                        recycleView.snack(it.errorText)
-                    }
+                    is ServersUiState.ErrorMsg -> recycleView.snack(it.errorText)
                 }
             }
         )
+    }
+
+    private fun setupSwipeToRefresh() {
+        swipeToRefresh.setOnRefreshListener {
+            serversViewModel.onSwipeToRefresh()
+        }
     }
 
     override fun onServerClick(server: ServersEntity) {
