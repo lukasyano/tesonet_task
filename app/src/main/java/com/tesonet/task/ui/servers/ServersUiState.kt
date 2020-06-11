@@ -8,6 +8,4 @@ sealed class ServersUiState {
 
     data class ErrorMsg(var errorText: String) : ServersUiState()
 
-    object NoTokenError : ServersUiState()
-
 }

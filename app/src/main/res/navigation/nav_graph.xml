@@ -13,7 +13,9 @@
         tools:layout="@layout/fragment_login">
         <action
             android:id="@+id/action_loginFragment_to_serversFragment"
-            app:destination="@id/serversFragment" />
+            app:destination="@id/serversFragment"
+            app:popUpTo="@id/nav_graph"
+            />
     </fragment>
     <fragment
         android:id="@+id/serversFragment"
@@ -22,12 +24,10 @@
         tools:layout="@layout/fragment_servers">
         <action
             android:id="@+id/action_serversFragment_to_serverDetailsFragment"
-            app:destination="@id/serverDetailsFragment" />
-        <action
-            android:id="@+id/action_serversFragment_to_loginFragment"
-            app:destination="@id/loginFragment"
-            app:popUpTo="@id/nav_graph"/>
+            app:destination="@id/serverDetailsFragment"
+            />
     </fragment>
+
     <fragment
         android:id="@+id/serverDetailsFragment"
         android:name="com.tesonet.task.ui.serverDetails.ServerDetailsFragment"

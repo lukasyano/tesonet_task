@@ -5,7 +5,7 @@ import org.koin.android.ext.koin.androidApplication
 import org.koin.dsl.module
 
 const val TOKEN_VALUE_KEY = "TOKEN_VALUE"
-val TOKEN_DEFAULT_VALUE = null
+const val TOKEN_DEFAULT_VALUE = ""
 
 val sharedPreferencesModule = module {
     single {

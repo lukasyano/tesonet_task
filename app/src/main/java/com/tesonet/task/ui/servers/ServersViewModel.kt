@@ -15,12 +15,7 @@ class ServersViewModel(
     private val bag = CompositeDisposable()
 
     init {
-        val token = persistentRepository.getTokenFromPersistent()
-        if (token.isNullOrEmpty()) {
-            liveData.postValue(ServersUiState.NoTokenError)
-        } else {
-            getServersFromApi(token)
-        }
+            getServersFromApi(persistentRepository.getTokenFromPersistent() ?: "")
     }
 
     private fun getServersFromApi(token: String) {

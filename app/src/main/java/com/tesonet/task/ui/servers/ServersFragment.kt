@@ -54,9 +54,6 @@ class ServersFragment : Fragment(), ServersListener {
                     is ServersUiState.ErrorMsg -> {
                         recycleView.snack(it.errorText)
                     }
-                    is ServersUiState.NoTokenError -> {
-                        backToLogin()
-                    }
                 }
             }
         )
@@ -71,12 +68,4 @@ class ServersFragment : Fragment(), ServersListener {
         }
     }
 
-    private fun backToLogin() {
-        view?.let {
-            findNavController()
-                .navigate(
-                    ServersFragmentDirections.actionServersFragmentToLoginFragment()
-                )
-        }
-    }
 }

@@ -30,10 +30,10 @@ class LoginFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        observeLiveData()
 
         buttonLogin.setOnClickListener {
             login()
+            observeLiveData()
         }
     }
 
@@ -44,6 +44,7 @@ class LoginFragment : Fragment() {
     }
 
     private fun observeLiveData() {
+
         loginViewModel.liveData.observe(
             viewLifecycleOwner, Observer {
                 spinner.hide()
@@ -52,15 +53,15 @@ class LoginFragment : Fragment() {
                 when (it) {
                     is LoginUiState.Success -> {
                         view?.let {
-                            findNavController()
-                                .navigate(
-                                    LoginFragmentDirections.actionLoginFragmentToServersFragment()
-                                )
+                            findNavController().navigate(
+                                LoginFragmentDirections.actionLoginFragmentToServersFragment()
+                            )
                         }
                     }
                     is LoginUiState.Error -> {
                         buttonLogin.snack(getString(it.errorMsg))
                     }
+                    is LoginUiState.ShowSpinner -> spinner.show()
                 }
             }
         )
