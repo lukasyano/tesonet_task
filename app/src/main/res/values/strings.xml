@@ -1,8 +1,8 @@
 <resources>
     <string name="app_name">Tesonet task</string>
     <string name="login">Login</string>
-    <string name="username">username</string>
-    <string name="password">password</string>
+    <string name="username">Username</string>
+    <string name="password">Password</string>
     <string name="unknown">Unknown</string>
     <string name="sing_out">Sing out</string>
     <string name="distance">Distance:</string>
