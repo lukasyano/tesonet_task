@@ -3,4 +3,6 @@
     <color name="colorPrimary">#6200EE</color>
     <color name="colorPrimaryDark">#3700B3</color>
     <color name="colorAccent">#03DAC5</color>
+    <color name="sign_in_button_text_color">#777</color>
+    <color name="sign_in_text_color_hint">#eee</color>
 </resources>

@@ -1,15 +1,14 @@
 package com.tesonet.task.ui.login
 
-import android.content.Context
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.view.inputmethod.InputMethodManager
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.navigation.fragment.findNavController
 import com.tesonet.task.R
+import com.tesonet.task.hideKeyboard
 import com.tesonet.task.snack
 import kotlinx.android.synthetic.main.fragment_login.*
 import org.koin.androidx.viewmodel.ext.android.viewModel
@@ -35,26 +34,23 @@ class LoginFragment : Fragment() {
 
         buttonLogin.setOnClickListener {
             login()
-            hideKeyboard()
-            spinner.show()
         }
     }
 
     private fun login() {
         username = editTextUsername.text.toString()
         password = editTextPassword.text.toString()
-
-        if (username.isNotEmpty() || password.isNotEmpty()) {
-            loginViewModel.login(username, password)
-        }
+        loginViewModel.login(username, password)
     }
 
     private fun observeLiveData() {
         loginViewModel.liveData.observe(
             viewLifecycleOwner, Observer {
+                spinner.hide()
+                view?.hideKeyboard()
+
                 when (it) {
                     is LoginUiState.Success -> {
-                        hideKeyboard()
                         view?.let {
                             findNavController()
                                 .navigate(
@@ -63,16 +59,10 @@ class LoginFragment : Fragment() {
                         }
                     }
                     is LoginUiState.Error -> {
-                        spinner.hide()
-                        buttonLogin.snack(it.error)
+                        buttonLogin.snack(getString(it.errorMsg))
                     }
                 }
             }
         )
-    }
-    private fun hideKeyboard() {
-        val imm: InputMethodManager =
-            requireActivity().getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
-        imm.hideSoftInputFromWindow(requireView().windowToken, 0)
     }
 }

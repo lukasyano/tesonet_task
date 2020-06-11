@@ -36,10 +36,6 @@ class ServersFragment : Fragment(), ServersListener {
 
         spinner.hide()
 
-        log_out_button.setOnClickListener {
-            backToLogin()
-        }
-
         serversAdapter = ServersAdapter(this)
         recycleView.adapter = serversAdapter
         recycleView.layoutManager = LinearLayoutManager(context)
