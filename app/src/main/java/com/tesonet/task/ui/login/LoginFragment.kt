@@ -1,9 +1,12 @@
 package com.tesonet.task.ui.login
 
+import android.content.Context
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.view.inputmethod.InputMethodManager
+import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.navigation.fragment.findNavController
@@ -24,6 +27,8 @@ class LoginFragment : Fragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
+        //hide default action bar
+        (activity as AppCompatActivity?)!!.supportActionBar!!.hide()
         return inflater.inflate(R.layout.fragment_login, container, false)
     }
 
@@ -33,6 +38,8 @@ class LoginFragment : Fragment() {
 
         buttonLogin.setOnClickListener {
             login()
+            hideKeyboard()
+            spinner.show()
         }
     }
 
@@ -50,6 +57,7 @@ class LoginFragment : Fragment() {
             viewLifecycleOwner, Observer {
                 when (it) {
                     is LoginUiState.Success -> {
+                        hideKeyboard()
                         view?.let {
                             findNavController()
                                 .navigate(
@@ -58,10 +66,16 @@ class LoginFragment : Fragment() {
                         }
                     }
                     is LoginUiState.Error -> {
+                        spinner.hide()
                         buttonLogin.snack(it.error)
                     }
                 }
             }
         )
+    }
+    private fun hideKeyboard() {
+        val imm: InputMethodManager =
+            requireActivity().getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
+        imm.hideSoftInputFromWindow(requireView().windowToken, 0)
     }
 }

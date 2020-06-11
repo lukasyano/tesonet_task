@@ -16,6 +16,7 @@ import com.tesonet.task.ui.ServersListener
 import kotlinx.android.synthetic.main.fragment_servers.*
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
+
 class ServersFragment : Fragment(), ServersListener {
 
     private val serversViewModel: ServersViewModel by viewModel()
@@ -27,10 +28,17 @@ class ServersFragment : Fragment(), ServersListener {
         savedInstanceState: Bundle?
     ): View? {
         return inflater.inflate(R.layout.fragment_servers, container, false)
+
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
+        spinner.hide()
+
+        log_out_button.setOnClickListener {
+            backToLogin()
+        }
 
         serversAdapter = ServersAdapter(this)
         recycleView.adapter = serversAdapter

@@ -1,7 +1,7 @@
 package com.tesonet.task.ui
 
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import androidx.appcompat.app.AppCompatActivity
 import com.tesonet.task.R
 
 class MainActivity : AppCompatActivity() {

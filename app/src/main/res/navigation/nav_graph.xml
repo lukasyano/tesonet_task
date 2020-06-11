@@ -25,7 +25,8 @@
             app:destination="@id/serverDetailsFragment" />
         <action
             android:id="@+id/action_serversFragment_to_loginFragment"
-            app:destination="@id/loginFragment" />
+            app:destination="@id/loginFragment"
+            app:popUpTo="@id/nav_graph"/>
     </fragment>
     <fragment
         android:id="@+id/serverDetailsFragment"
